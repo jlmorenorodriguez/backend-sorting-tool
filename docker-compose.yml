@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:4.4
+    container_name: product-sorting-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=product-sorting
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - product-sorting-network
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  product-sorting-app:
+    build: src
+    container_name: product-sorting-app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATA_MONGODB_HOST=mongodb
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_DATABASE=product-sorting
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - product-sorting-network
+
+networks:
+  product-sorting-network:
+    driver: bridge
+
+volumes:
+  mongodb-data:
+    driver: local

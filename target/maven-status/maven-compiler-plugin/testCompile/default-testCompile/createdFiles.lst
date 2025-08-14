@@ -1,0 +1,10 @@
+com/example/productsorting/infrastructure/StockParserTest.class
+com/example/productsorting/application/factory/SortingCriteriaFactoryTest.class
+com/example/productsorting/ProductSortingApiIT.class
+com/example/productsorting/infrastructure/controller/ProductSortingControllerTest.class
+com/example/productsorting/infrastructure/repository/ProductMongoRepositoryTest.class
+com/example/productsorting/domain/service/ProductSortingDomainServiceTest.class
+com/example/productsorting/infrastructure/StockParser.class
+com/example/productsorting/domain/model/ProductTest.class
+com/example/productsorting/application/service/ProductSortingServiceTest.class
+com/example/productsorting/domain/model/SortingCriteriaTest.class

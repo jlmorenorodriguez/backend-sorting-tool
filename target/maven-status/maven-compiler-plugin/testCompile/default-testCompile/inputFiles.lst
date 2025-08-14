@@ -1,0 +1,9 @@
+/Users/joseluismorenorodriguez/Documents/workspace java/productsorting/src/test/java/com/example/productsorting/domain/model/ProductTest.java
+/Users/joseluismorenorodriguez/Documents/workspace java/productsorting/src/test/java/com/example/productsorting/domain/model/SortingCriteriaTest.java
+/Users/joseluismorenorodriguez/Documents/workspace java/productsorting/src/test/java/com/example/productsorting/application/factory/SortingCriteriaFactoryTest.java
+/Users/joseluismorenorodriguez/Documents/workspace java/productsorting/src/test/java/com/example/productsorting/infrastructure/controller/ProductSortingControllerTest.java
+/Users/joseluismorenorodriguez/Documents/workspace java/productsorting/src/test/java/com/example/productsorting/infrastructure/StockParserTest.java
+/Users/joseluismorenorodriguez/Documents/workspace java/productsorting/src/test/java/com/example/productsorting/domain/service/ProductSortingDomainServiceTest.java
+/Users/joseluismorenorodriguez/Documents/workspace java/productsorting/src/test/java/com/example/productsorting/ProductSortingApiIT.java
+/Users/joseluismorenorodriguez/Documents/workspace java/productsorting/src/test/java/com/example/productsorting/application/service/ProductSortingServiceTest.java
+/Users/joseluismorenorodriguez/Documents/workspace java/productsorting/src/test/java/com/example/productsorting/infrastructure/repository/ProductMongoRepositoryTest.java
