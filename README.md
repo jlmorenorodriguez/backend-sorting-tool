@@ -1,68 +1,68 @@
-# Sistema de Ordenación de Productos
+# Product Sorting System
 
-Este servicio REST permite ordenar productos según criterios de puntuación ponderados, siguiendo una arquitectura hexagonal y principios de Domain-Driven Design (DDD).
+This REST service allows sorting products based on weighted scoring criteria, following hexagonal architecture and Domain-Driven Design (DDD) principles.
 
-## Características
+## Features
 
-- **Ordenación de productos** basada en múltiples criterios con pesos configurables
-- **Criterios implementados**:
-    - Ventas por unidades: Prioriza productos con mayor número de ventas
-    - Ratio de stock: Prioriza productos con mejor disponibilidad de tallas
-- **Arquitectura hexagonal**: Separación clara entre dominio, aplicación e infraestructura
-- **Persistencia en MongoDB**: Almacenamiento de productos con integración transparente
-- **API REST**: Endpoints para utilizar la funcionalidad del sistema
-- **Documentación con Swagger**: Interfaz interactiva para explorar y probar la API
-- **Tests completos**: Unitarios, integración y end-to-end
+- **Product sorting** based on multiple criteria with configurable weights
+- **Implemented criteria**:
+   - Sales by units: Prioritizes products with higher number of sales
+   - Stock ratio: Prioritizes products with better size availability
+- **Hexagonal architecture**: Clear separation between domain, application, and infrastructure
+- **MongoDB persistence**: Product storage with transparent integration
+- **REST API**: Endpoints to utilize the system's functionality
+- **Swagger documentation**: Interactive interface to explore and test the API
+- **Complete tests**: Unit, integration, and end-to-end
 
-## Requisitos
+## Requirements
 
 - Java 17+
 - Maven 3.6+
-- Docker y Docker Compose (para la base de datos y despliegue)
+- Docker and Docker Compose (for database and deployment)
 
-## Inicio rápido
+## Quick start
 
-### Opción 1: Usando Docker Compose (recomendado)
+### Option 1: Using Docker Compose (recommended)
 
 ```bash
-# Clonar el repositorio
-git clone https://github.com/tuusuario/product-sorting.git
+# Clone the repository
+git clone https://github.com/yourusername/product-sorting.git
 cd product-sorting
 
-# Iniciar la aplicación completa con Docker
+# Start the complete application with Docker
 make docker-all
 
-# Alternativamente, si solo quieres MongoDB y ejecutar la app localmente
+# Alternatively, if you only want MongoDB and run the app locally
 make docker-db
 make run
 ```
 
-### Opción 2: Ejecutar sin MongoDB (solo para pruebas)
+### Option 2: Run without MongoDB (testing only)
 
 ```bash
-# Si solo quieres probar la API y Swagger sin MongoDB
+# If you only want to test the API and Swagger without MongoDB
 make run-no-mongo
 ```
 
-### Opción 3: Configuración manual
+### Option 3: Manual setup
 
 ```bash
-# Instalar MongoDB (o usar una instancia existente)
-# Ajustar application.yml con la configuración de MongoDB
+# Install MongoDB (or use an existing instance)
+# Adjust application.yml with MongoDB configuration
 
-# Compilar y ejecutar
+# Build and run
 mvn clean package
 java -jar target/product-sorting-1.0.0.jar
 ```
 
-## Documentación de la API
+## API Documentation
 
-La API está documentada con Swagger/OpenAPI, accesible en:
+The API is documented with Swagger/OpenAPI, accessible at:
 
 - **Swagger UI**: http://localhost:8080/swagger-ui.html
 - **API Docs (JSON)**: http://localhost:8080/api-docs
 
-### Ejemplo de uso directo con curl
+### Direct usage example with curl
 
 ```bash
 curl -X POST http://localhost:8080/api/products/sort \
@@ -70,105 +70,101 @@ curl -X POST http://localhost:8080/api/products/sort \
   -d '{"salesCriterionWeight": 0.7, "stockRatioCriterionWeight": 0.3}'
 ```
 
-## Estructura del proyecto
+## Project structure
 
 ```
 ├── src/
 │   ├── main/
 │   │   ├── java/
 │   │   │   └── com/example/productsorting/
-│   │   │       ├── domain/          # Capa de dominio
-│   │   │       ├── application/     # Capa de aplicación
-│   │   │       └── infrastructure/  # Capa de infraestructura
+│   │   │       ├── domain/          # Domain layer
+│   │   │       ├── application/     # Application layer
+│   │   │       └── infrastructure/  # Infrastructure layer
 │   │   └── resources/
-│   │       └── application.yml      # Configuración
+│   │       └── application.yml      # Configuration
 │   └── test/                        # Tests
-├── docker-compose.yml               # Configuración de Docker
-├── Dockerfile                       # Imagen de la aplicación
-├── Makefile                         # Comandos útiles
-└── pom.xml                          # Configuración de Maven
+├── docker-compose.yml               # Docker configuration
+├── Dockerfile                       # Application image
+├── Makefile                         # Useful commands
+└── pom.xml                          # Maven configuration
 ```
 
-## Arquitectura
+## Architecture
 
-La solución implementa una arquitectura hexagonal (también conocida como ports and adapters):
+The solution implements hexagonal architecture (also known as ports and adapters):
 
-1. **Dominio**: El núcleo del sistema con las reglas de negocio
-    - Entidades: Product
-    - Interfaces: SortingCriteria
-    - Implementaciones: SalesCriterion, StockRatioCriterion
-    - Servicios: ProductSortingDomainService
+1. **Domain**: The system's core with business rules
+   - Entities: Product
+   - Interfaces: SortingCriteria
+   - Implementations: SalesCriterion, StockRatioCriterion
+   - Services: ProductSortingDomainService
 
-2. **Aplicación**: Casos de uso que orquestan el dominio
-    - Servicios: ProductSortingService
-    - DTOs: ProductSortingRequest, ProductSortingResponse
-    - Factories: SortingCriteriaFactory
+2. **Application**: Use cases that orchestrate the domain
+   - Services: ProductSortingService
+   - DTOs: ProductSortingRequest, ProductSortingResponse
+   - Factories: SortingCriteriaFactory
 
-3. **Infraestructura**: Adaptadores técnicos
-    - Repositorios: ProductMongoRepository, ProductRepositoryImpl
-    - Controladores: ProductSortingController
-    - Configuración: ApplicationConfig, WebConfig, OpenApiConfig
+3. **Infrastructure**: Technical adapters
+   - Repositories: ProductMongoRepository, ProductRepositoryImpl
+   - Controllers: ProductSortingController
+   - Configuration: ApplicationConfig, WebConfig, OpenApiConfig
 
-## Comandos útiles (Makefile)
+## Useful commands (Makefile)
 
 ```bash
-# Compilar la aplicación
+# Build the application
 make build
 
-# Ejecutar aplicación con MongoDB
+# Run application with MongoDB
 make run
 
-# Ejecutar aplicación sin MongoDB (solo para pruebas)
+# Run application without MongoDB (testing only)
 make run-no-mongo
 
-# Actualizar dependencias
+# Update dependencies
 make update-deps 
 
-# Iniciar solo MongoDB
+# Start MongoDB only
 make docker-db
 
-# Iniciar toda la aplicación en Docker
+# Start complete application in Docker
 make docker-all
 
-# Ver logs de la aplicación
+# View application logs
 make docker-logs
 
-# Detener contenedores
+# Stop containers
 make docker-stop
 ```
 
-## Solución de problemas
+## Troubleshooting
 
-### Problema de conexión a MongoDB
+### MongoDB connection issue
 
-Si ves errores como "Connection refused" al iniciar la aplicación:
+If you see errors like "Connection refused" when starting the application:
 
-1. Asegúrate de que MongoDB esté en ejecución:
+1. Make sure MongoDB is running:
    ```bash
    make docker-db
    ```
 
-2. O ejecuta la aplicación sin MongoDB:
+2. Or run the application without MongoDB:
    ```bash
    make run-no-mongo
    ```
 
-### Problemas con dependencias
+### Dependency issues
 
-Si tienes problemas con las dependencias de Swagger:
+If you have problems with Swagger dependencies:
 
 ```bash
 make fix-swagger
 ```
 
-## Extensibilidad
+## Extensibility
 
-Para añadir un nuevo criterio de ordenación:
+To add a new sorting criterion:
 
-1. Implementar la interfaz `SortingCriteria`
-2. Añadir el nuevo criterio en `SortingCriteriaFactory`
-3. Actualizar el controlador REST para aceptar el nuevo parámetro
-
-## Licencia
-
-Este proyecto está licenciado bajo la Licencia MIT - ver el archivo LICENSE para más detalles.
+1. Implement the `SortingCriteria` interface
+2. Add the new criterion in `SortingCriteriaFactory`
+3. Update the REST controller to accept the new parameter
